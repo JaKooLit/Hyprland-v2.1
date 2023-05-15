@@ -40,7 +40,7 @@
 - `xdg-user-dirs` - by default archinstall script does not install this on "minimal" profile. That is why I have added in script
 
 ### ✨ Arch Linux quick Installation:
-- A guide to install using the install script:[`Youtube Link`](https://youtu.be/BUgzNdxOaD4) 
+- A guide to install using the install script:[`Youtube Link`]([https://youtu.be/BUgzNdxOaD4](https://youtu.be/sgDJnaMgtY0)) 
 - a.) You can install one by one packages above or choose the automatic installer script.
 - b.) If you want to add or edit packages, edit install-hyprland script. Ensure packages are present on AUR or official else the script will fail.
 - c.) Installation of Asus-ROG-utilities are entirely optional. This is only for Asus Laptop. if you select no, will skip the step.
