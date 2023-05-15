@@ -4,10 +4,7 @@
   "align": 0,
   "rotate": 0,
   "format": "{icon} {percent}",
-	//format-icons-Arch
   "format-icons": ["󰃞", "󰃟", "󰃠"],
-	//format-icons-Gen2
-  //"format-icons": ["", "", "", ""],
   "on-click": "",
   "on-click-middle": "",
   "on-click-right": "",
