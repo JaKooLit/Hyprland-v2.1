@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Define the path to the light and dark wallpaper folders
+light_path="$HOME/Pictures/wallpapers/Dynamic-Wallpapers/Light"
+dark_path="$HOME/Pictures/wallpapers/Dynamic-Wallpapers/Dark"
+
+if [[ $(pidof swaybg) ]]; then
+  pkill swaybg
+fi
+
+swww query || swww init
+
+swww="swww img"
+effect="--transition-bezier .43,1.19,1,.4 --transition-fps 60 --transition-type grow --transition-pos 0.925,0.977 --transition-duration 2"
+waybar_light="ln -sf $HOME/.config/hypr/waybar/style/light-mode.css $HOME/.config/hypr/waybar/style.css"
+waybar_dark="ln -sf $HOME/.config/hypr/waybar/style/dark-mode.css $HOME/.config/hypr/waybar/style.css"
+
+notify_user_dark() {
+	notify-send -h string:x-canonical-private-synchronous:sys-notify -u low "Switching to dark mode"
+}
+
+notify_user_light() {
+	notify-send -h string:x-canonical-private-synchronous:sys-notify -u low "Switching to light mode"
+}
+
+# Determine the current wallpaper mode by checking a configuration file
+if [ "$(cat ~/.wallpaper_mode)" = "light" ]; then
+  current_mode="light"
+else
+  current_mode="dark"
+fi
+
+# Switch to the opposite wallpaper mode
+if [ "$current_mode" = "light" ]; then
+  # Find the corresponding dark wallpaper if one exists
+  current_wallpaper="$(cat ~/.current_wallpaper)"
+  corresponding_dark_wallpaper="${current_wallpaper/_light/_dark}"
+
+  if [ -f "${dark_path}/${corresponding_dark_wallpaper}" ]; then
+	
+    # Corresponding wallpaper found, set it as the background
+    $swww "${dark_path}/${corresponding_dark_wallpaper}" $effect && notify_user_dark && $waybar_dark 
+  else
+    # No corresponding wallpaper found, choose a random one from the dark folder
+    random_dark_wallpaper="$(find "${dark_path}" -type f -iname '*_dark.jpg' -print0 | shuf -n1 -z | xargs -0 basename)"
+    $swww "${dark_path}/${random_dark_wallpaper}" $effect  && notify_user_dark && $waybar_dark
+  fi
+
+  # Update the configuration file to reflect the new wallpaper mode and current wallpaper
+  echo "dark" > ~/.wallpaper_mode
+  echo "${dark_path}/${corresponding_dark_wallpaper}" > ~/.current_wallpaper
+
+else
+  # Find the corresponding light wallpaper if one exists
+  current_wallpaper="$(cat ~/.current_wallpaper)"
+  corresponding_light_wallpaper="${current_wallpaper/_dark/_light}"
+
+  if [ -f "${light_path}/${corresponding_light_wallpaper}" ]; then
+    # Corresponding wallpaper found, set it as the background
+    $swww "${light_path}/${corresponding_light_wallpaper}" $effect  && notify_user_light && $waybar_light 
+else
+    # No corresponding wallpaper found, choose a random one from the light folder
+    random_light_wallpaper="$(find "${light_path}" -type f -iname '*_light.jpg' -print0 | shuf -n1 -z | xargs -0 basename)"
+    $swww "${light_path}/${random_light_wallpaper}" $effect && notify_user_light && $waybar_light     
+  fi
+
+  # Update the configuration file to reflect the new wallpaper mode and current wallpaper
+  echo "light" > ~/.wallpaper_mode
+  echo "${light_path}/${corresponding_light_wallpaper}" > ~/.current_wallpaper
+fi
+
+# Restart waybar
+killall waybar
+exec ~/.config/hypr/scripts/statusbar
+
+

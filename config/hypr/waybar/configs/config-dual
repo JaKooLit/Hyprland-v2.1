@@ -1,0 +1,67 @@
+[{
+"include": "~/.config/hypr/waybar/modules",
+"layer": "top",
+//"mode": "dock",
+"exclusive": true,
+"passthrough": false,
+"position": "top",
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+"margin-left": 10,
+"margin-right": 10,
+
+"modules-left": [
+	"wlr/workspaces", 
+	"cpu", 
+	"temperature", 
+	"memory",
+	"disk", 
+	],
+  
+"modules-center": [
+	"idle_inhibitor", 
+	"clock",
+	"custom/light_dark",
+	], 
+
+"modules-right": [
+	"custom/weather",	  
+	"battery", 
+	"backlight",
+	"bluetooth",
+	"network",
+	"custom/updater",
+	"custom/cycle_wall",
+	"custom/lock", 
+	],
+},
+{
+"include": "~/.config/hypr/waybar/modules",
+"height": 20,
+"name": "bottom",
+"layer": "top",
+"margin": "0px 0px 0px 0px",
+"position": "bottom",
+"margin-left": 10,
+"margin-right": 10,
+
+"modules-left": [
+	"custom/menu",  
+	"wlr/taskbar",
+	 ],
+
+"modules-center": [
+	"cava"
+	],
+
+"modules-right": [
+	"hyprland/window",
+	"tray",
+	"pulseaudio",
+	//"wireplumber", 
+	"pulseaudio#microphone",	  
+	"custom/power",
+	],
+
+}]
