@@ -273,23 +273,34 @@ for FONT in otf-font-awesome ttf-jetbrains-mono-nerd ttf-jetbrains-mono otf-font
     fi
 done
 
-# Prompt user to manually install waybar-hyprland-git and remove waybar
+# Prompt user to install waybar-hyprland-git if waybar is detected
 printf "\n${NOTE} Installing waybar-hyprland-git"
 printf "\n"
 printf "\n"
 if pacman -Qs waybar > /dev/null; then
-    read -n1 -rep "${CAT} waybar is already installed. Would you like to install waybar-hyprland-git.(y/n)" bar
+    read -n1 -rep "${CAT} waybar is already installed. Would you like to remove it and install waybar-hyprland-git? (y/n)" bar
     echo
     if [[ $bar =~ ^[Yy]$ ]]; then
-    sudo pacman -R --noconfirm waybar waybar-hyprland 2>&1 | tee -a "$LOG"
+        sudo pacman -R --noconfirm waybar waybar-hyprland 2>&1 | tee -a "$LOG"
+        for GIT in waybar-hyprland-git; do
+            install_package "$GIT" 2>&1 | tee -a $LOG
+            if [ $? -ne 0 ]; then
+                echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
+                exit 1
+            fi
+        done
+    else
+        echo "${CAT} You chose not to install waybar-hyprland-git."
+    fi
+else
+    echo "${NOTE} waybar is not detected. Installing waybar-hyprland-git."
     for GIT in waybar-hyprland-git; do
-    install_package  "$GIT" 2>&1 | tee -a $LOG
+        install_package "$GIT" 2>&1 | tee -a $LOG
         if [ $? -ne 0 ]; then
-        echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
-        exit 1
+            echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
+            exit 1
         fi
     done
-    fi
 fi
 
 echo
