@@ -204,8 +204,8 @@ fi
     printf "\n"
     printf "\n"
 
-    # preparing env_variables.conf to enable env = WLR_NO_HARDWARE_CURSORS,1 so it will be ready once config files copied
-    sed -i '14s/#//' config/hypr/configs/env_variables.conf
+    # preparing exec.conf to enable env = WLR_NO_HARDWARE_CURSORS,1 so it will be ready once config files copied
+    sed -i '44s/#//' config/hypr/configs/exec.conf
     
     # Additional Nvidia steps
     NVEA="/etc/modprobe.d/nvidia.conf"
