@@ -160,33 +160,41 @@ if ! lspci -k | grep -A 2 -E "(VGA|3D)" | grep -iq nvidia; then
         install_package "$HYP" 2>&1 | tee -a $LOG
     done
 else
-    # Prompt user for Nvidia installation
-    printf "${YELLOW} NVIDIA GPU Detected. Kindly note that Nvidia-Wayland is still kinda wonky. Kindly check Hyprland Wiki if Issues encountered!\n"
-    sleep 1
-    printf "${YELLOW} Kindly enable some nvidia-related stuff in the configs after installation\n"
-    sleep 2
-    read -n1 -rp "Would you like to install the Nvidia Hyprland? (y/n) " NVIDIA
-    echo
-    if [[ $NVIDIA =~ ^[Yy]$ ]]; then
-    # Install Nvidia Hyprland
-    printf "${YELLOW}Installing Nvidia Hyprland...${RESET}\n"
-        if pacman -Qs hyprland > /dev/null; then
-            read -n1 -rp "hyprland detected. Would you like to remove and install hyprland-nvidia instead? (y/n) " nvidia_hypr
-            echo
-            if [[ $nvidia_hypr =~ ^[Yy]$ ]]; then
-                sudo pacman -R --noconfirm hyprland 2>/dev/null | tee -a "$LOG"
-            fi
-        fi
-        install_package "hyprland-nvidia-git" 2>&1 | tee -a $LOG
-    else
-        printf "${YELLOW} Installing non-Nvidia Hyprland..."
-        for hyprnvi in hyprland-nvidia-git hyprland-nvidia hyprland-nvidia-hidpi-git; do
-            sudo pacman -R --noconfirm "$hyprnvi" 2>/dev/null | tee -a $LOG
-        done
-        for HYP2 in hyprland; do
-            install_package "$HYP2" 2>&1 | tee -a $LOG
-        done
-    fi
+	# Prompt user for Nvidia installation
+	printf "${YELLOW} NVIDIA GPU Detected. Kindly note that Nvidia-Wayland is still kinda wonky. Kindly check Hyprland Wiki if Issues encountered!\n"
+	sleep 1
+	printf "${YELLOW} Kindly enable some Nvidia-related stuff in the configs after installation\n"
+	sleep 2
+	read -n1 -rp "Would you like to install Nvidia Hyprland? (y/n) " NVIDIA
+	echo
+
+	if [[ $NVIDIA =~ ^[Yy]$ ]]; then
+    	# Install Nvidia Hyprland
+    	printf "\n"
+    	printf "${YELLOW}Installing Nvidia Hyprland...${RESET}\n"
+    	if pacman -Qs hyprland > /dev/null; then
+        	read -n1 -rp "Hyprland detected. Would you like to remove and install hyprland-nvidia instead? (y/n) " nvidia_hypr
+        	echo
+        	if [[ $nvidia_hypr =~ ^[Yy]$ ]]; then
+            	sudo pacman -R --noconfirm hyprland 2>/dev/null | tee -a "$LOG" || true
+        	fi
+    		fi
+    		for hyprnvi in hyprland hyprland-nvidia hyprland-nvidia-hidpi-git; do
+        	sudo pacman -R --noconfirm "$hyprnvi" 2>/dev/null | tee -a $LOG || true
+    		done
+    	install_package "hyprland-nvidia-git" 2>&1 | tee -a $LOG
+	else
+    		printf "\n"
+   	 	printf "${YELLOW} Installing non-Nvidia Hyprland...\n"
+    		for hyprnvi in hyprland-nvidia-git hyprland-nvidia hyprland-nvidia-hidpi-git; do
+        	sudo pacman -R --noconfirm "$hyprnvi" 2>/dev/null | tee -a $LOG || true
+    		done
+    		for HYP2 in hyprland; do
+        install_package "$HYP2" 2>&1 | tee -a $LOG
+    		done
+	fi
+
+
 
     # Install additional nvidia packages
     printf "${YELLOW} Installing additional Nvidia packages...\n"
@@ -200,7 +208,6 @@ else
         sudo sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf 2>&1 | tee -a $LOG
         sudo mkinitcpio -P 2>&1 | tee -a $LOG
     printf "\n"   
-    printf "\n"
     printf "\n"
 
     # preparing exec.conf to enable env = WLR_NO_HARDWARE_CURSORS,1 so it will be ready once config files copied
@@ -233,10 +240,8 @@ else
 
         	# to completely blacklist nouveau (See wiki.archlinux.org/title/Kernel_module#Blacklisting 6.1)
         	if [ -f "/etc/modprobe.d/blacklist.conf" ]; then
-            	# If the file exists, append the line to it
             	echo "install nouveau /bin/true" | sudo tee -a "/etc/modprobe.d/blacklist.conf" 2>&1 | tee -a $LOG 
         	else
-            	# If the file does not exist, create it and add the line
             	echo "install nouveau /bin/true" | sudo tee "/etc/modprobe.d/blacklist.conf" 2>&1 | tee -a $LOG 
         	fi
     	fi
@@ -276,38 +281,18 @@ for FONT in otf-font-awesome ttf-jetbrains-mono-nerd ttf-jetbrains-mono otf-font
     fi
 done
 
-# Prompt user to install waybar-hyprland-git if waybar is detected
-printf "\n${NOTE} Installing waybar-hyprland-git"
-printf "\n"
-if pacman -Qs waybar > /dev/null; then
-    read -n1 -rep "${CAT} waybar is already installed. Would you like to remove it and install waybar-hyprland-git? (y/n)" bar
-    echo
-    if [[ $bar =~ ^[Yy]$ ]]; then
-        sudo pacman -R --noconfirm waybar 2>/dev/null; sudo pacman -R --noconfirm waybar-hyprland 2>&1 | tee -a "$LOG"
-        for GIT in waybar-hyprland-git; do
-            install_package "$GIT" 2>&1 | tee -a $LOG
-            if [ $? -ne 0 ]; then
-                echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
-                exit 1
-            fi
-        done
-    else
-        echo "${CAT} You chose not to install waybar-hyprland-git."
-    fi
-else
-    echo "${NOTE} waybar is not detected. Installing waybar-hyprland-git."
-    for GIT in waybar-hyprland-git; do
-        install_package "$GIT" 2>&1 | tee -a $LOG
+for GIT in waybar-hyprland-git; do
+    install_package  "$GIT" 2>&1 | tee -a $LOG
         if [ $? -ne 0 ]; then
-            echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
-            exit 1
-        fi
-    done
-fi
+        echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
+        exit 1
+    fi
+done
+
+sleep 2
 
 echo
-    print_success " All necessary packages installed successfully."
-sleep 2
+print_success "All necessary packages installed successfully."
 
 #clear screen
 clear
