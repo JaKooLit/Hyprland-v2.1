@@ -46,6 +46,12 @@
 - c.) Installation of Asus-ROG-utilities are entirely optional. This is only for Asus Laptop. if you select no, will skip the step.
 - d.) Thunar and necessary plugins are entirely optional
 
+### ✨ If upgrading from Hyprland-v2, 
+- easy way, ran script, script will create back-up of your files and folders (which needed for the config-dots) so you can easily copy over.
+- long way, copy the scripts in config/hypr/scripts and copy to your ~/.config/hypr/scripts . Make sure to make them executable after copied. By running chmod +x filename..
+- copy the waybar folder in config/hypr/waybar to your ~/.config/hypr/waybar
+- copy the wallpapers to your ~/Pictures . Some scripts are checking those folder. If not, modify the scripts changeWallpaper, changeWallpaper2, dark-light-mode, wallpaper-switcher in your ~/.config/hypr/scripts to your actual wallpapers.
+
 ### ✨ Some notes regarding using the install script:
 - clone this repo by using git. Change directory, make executable and run the script >cd Hyprland-v2 chmod +× install-sh ./install-sh
 - Optional stuff you can do using the script includes choices of the following:

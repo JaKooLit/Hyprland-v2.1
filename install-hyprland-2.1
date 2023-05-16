@@ -56,7 +56,6 @@ sleep 2
 printf "\n"
 printf "\n"
 
-
 # proceed
 read -n1 -rep "${CAT} Shall we proceed with installation (y/n) " PROCEED
     echo
@@ -240,9 +239,6 @@ else
         fi    
     fi
 fi
-
-
-
 
 #clear screen
 clear 
@@ -777,7 +773,6 @@ fi
         fi
     fi
 
-
 #clear screen
 clear 
 
@@ -977,7 +972,6 @@ fi
 #clear screen
 clear
 
-
 ### Install software for Asus ROG laptops ###
 read -n1 -rep "${CAT} (OPTIONAL - ONLY for ROG Laptops) Would you like to install Asus ROG software support? (y/n)" ROG
 if [[ $ROG =~ ^[Yy]$ ]]; then
@@ -1091,8 +1085,6 @@ else
   awk -v new_layout="$new_layout" '/kb_layout/ {$0 = "  kb_layout=us," new_layout} 1' config/hypr/hyprland.conf > temp.conf
   mv temp.conf config/hypr/hyprland.conf
 fi
-
-
 
 ### Copy Config Files ###
 set -e # Exit immediately if a command exits with a non-zero status.
@@ -1229,8 +1221,6 @@ else
   awk -v new_layout="$new_layout" '/kb_layout/ {$0 = "  kb_layout=us," new_layout} 1' config/hypr/hyprland.conf > temp.conf
   mv temp.conf config/hypr/hyprland.conf 2>&1 | tee -a "$LOG"
 fi
-
-
 
 ### Copy Config Files ###
 set -e # Exit immediately if a command exits with a non-zero status.
