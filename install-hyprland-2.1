@@ -49,9 +49,16 @@ sleep 2
 printf "\n"
 printf "\n"
 
-# Print password VM warning message
+# Print VM warning message
 printf "\n${NOTE} If you are installing on a VM (virtual box, VMWARE, QEMU-KVM), kindly ensure that 3D acceleration is enabled.\n"
 printf "Hyprland's performance on a Virtual Environment is abysmal... worst at its best. and it may not start at all!! YOU HAVE BEEN WARNED .${RESET}\n"
+sleep 2
+printf "\n"
+printf "\n"
+
+# Print system-update warning message
+printf "\n${NOTE} If you have not perform a full system update for a while, cancel the script by CTRL C and perform a full system update first\n"
+printf "${WARN} If there is a kernel update, reboot first your system and re-run script. Script may fail if not updated. .${RESET}\n"
 sleep 2
 printf "\n"
 printf "\n"
@@ -194,8 +201,6 @@ else
     		done
 	fi
 
-
-
     # Install additional nvidia packages
     printf "${YELLOW} Installing additional Nvidia packages...\n"
         for krnl in $(cat /usr/lib/modules/*/pkgbase); do
@@ -281,18 +286,32 @@ for FONT in otf-font-awesome ttf-jetbrains-mono-nerd ttf-jetbrains-mono otf-font
     fi
 done
 
-for GIT in waybar-hyprland-git; do
-    install_package  "$GIT" 2>&1 | tee -a $LOG
+# Check if waybar or waybar-hyprland is installed
+if pacman -Qs waybar > /dev/null; then
+    read -n1 -rep "${CAT} waybar is already installed. Would you like to uninstall it and install waybar-hyprland-git? (y/n)" bar
+    echo
+    if [[ $bar =~ ^[Yy]$ ]]; then
+        sudo pacman -R --noconfirm waybar 2>> "$LOG" > /dev/null || true
+        sudo pacman -R --noconfirm waybar-hyprland 2>> "$LOG" > /dev/null || true
+        install_package waybar-hyprland-git 2>&1 | tee -a "$LOG"
         if [ $? -ne 0 ]; then
-        echo -e "\e[1A\e[K${ERROR} - $GIT install had failed, please check the install.log"
+            echo -e "\e[1A\e[K${ERROR} - waybar-hyprland-git install had failed, please check the install.log"
+            exit 1
+        fi
+    else
+        echo "You chose not to install waybar-hyprland-git."
+    fi
+else
+    install_package waybar-hyprland-git 2>&1 | tee -a "$LOG"
+    if [ $? -ne 0 ]; then
+        echo -e "\e[1A\e[K${ERROR} - waybar-hyprland-git install had failed, please check the install.log"
         exit 1
     fi
-done
-
-sleep 2
+fi
 
 echo
 print_success "All necessary packages installed successfully."
+sleep 2
 
 #clear screen
 clear
