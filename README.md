@@ -53,7 +53,7 @@
 - copy the wallpapers to your ~/Pictures . Some scripts are checking those folder. If not, modify the scripts changeWallpaper, changeWallpaper2, dark-light-mode, wallpaper-switcher in your ~/.config/hypr/scripts to your actual wallpapers.
 
 ### ✨ Some notes regarding using the install script:
-- clone this repo by using git. Change directory, make executable and run the script >cd Hyprland-v2 chmod +× install-sh ./install-sh
+- clone this repo by using git. Change directory, make executable and run the script >cd Hyprland-v2.1 chmod +× install-Hyprland-2.1 ./install-Hyprland-2.1
 - Optional stuff you can do using the script includes choices of the following:
 -   a.) you can choose either yay or paru (if they are not installed)
 -   b.) whether to install none-nvidia patch hyprland package if nvidia gpu detected, 
