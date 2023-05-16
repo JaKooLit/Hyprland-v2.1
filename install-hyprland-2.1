@@ -174,14 +174,14 @@ else
             read -n1 -rp "hyprland detected. Would you like to remove and install hyprland-nvidia instead? (y/n) " nvidia_hypr
             echo
             if [[ $nvidia_hypr =~ ^[Yy]$ ]]; then
-                sudo pacman -R --noconfirm hyprland 2>&1 | tee -a $LOG
+                sudo pacman -R --noconfirm hyprland 2>/dev/null | tee -a "$LOG"
             fi
         fi
         install_package "hyprland-nvidia-git" 2>&1 | tee -a $LOG
     else
         printf "${YELLOW} Installing non-Nvidia Hyprland..."
         for hyprnvi in hyprland-nvidia-git hyprland-nvidia hyprland-nvidia-hidpi-git; do
-            sudo pacman -R --noconfirm "$hyprnvi" 2>&1 | tee -a $LOG
+            sudo pacman -R --noconfirm "$hyprnvi" 2>/dev/null | tee -a $LOG
         done
         for HYP2 in hyprland; do
             install_package "$HYP2" 2>&1 | tee -a $LOG
@@ -279,12 +279,11 @@ done
 # Prompt user to install waybar-hyprland-git if waybar is detected
 printf "\n${NOTE} Installing waybar-hyprland-git"
 printf "\n"
-printf "\n"
 if pacman -Qs waybar > /dev/null; then
     read -n1 -rep "${CAT} waybar is already installed. Would you like to remove it and install waybar-hyprland-git? (y/n)" bar
     echo
     if [[ $bar =~ ^[Yy]$ ]]; then
-        sudo pacman -R --noconfirm waybar waybar-hyprland 2>&1 | tee -a "$LOG"
+        sudo pacman -R --noconfirm waybar 2>/dev/null; sudo pacman -R --noconfirm waybar-hyprland 2>&1 | tee -a "$LOG"
         for GIT in waybar-hyprland-git; do
             install_package "$GIT" 2>&1 | tee -a $LOG
             if [ $? -ne 0 ]; then
