@@ -14,7 +14,7 @@
 - FIle Manager: [`Thunar`](https://docs.xfce.org/xfce/thunar/start) (Optional)
 
 ### FEATURES or Whats included in the dotfiles:
--  By default, Catpuccin Mocha Theme for Hyprland is added
+-  By default, Catpuccin Mocha Theme for Hyprland is enabled
 
 ### Miscellaneous (Optional):
 -  Themes: `Catppuccin Mocha GTK Theme`
@@ -73,7 +73,9 @@
 
 ###Please note, Only provided are configs. Any Hyprland-related issues to be reported on Hyprland Github
 - a.) Copy / Move files / folders in your ~/.config
-- b.) if you have azerty keyboard [`this`](https://github.com/swaywm/sway/issues/1460?fbclid=IwAR1C8VcY_wWbGhXvT-5ApjJCQuJoJzhOVor6o5fdn0Nj1c6bD9JXoQAPQIg) might help
+- b.) Copy wallpapers to your ~/Pictures/ or you need to edit the scripts. See above (upgrading from Hyprland-v2) notes.
+- c.) kb_layout is not defined in hyprland.conf as it is part of the script. If you manually copy, ensure to add kb_layout 
+- d.) if you have azerty keyboard [`this`](https://github.com/swaywm/sway/issues/1460?fbclid=IwAR1C8VcY_wWbGhXvT-5ApjJCQuJoJzhOVor6o5fdn0Nj1c6bD9JXoQAPQIg) might help
 
-### ✨ know-issues:
+### ✨ known-issues:
 - fractional scaling breaks swww
