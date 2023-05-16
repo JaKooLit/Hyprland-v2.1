@@ -75,3 +75,5 @@
 - a.) Copy / Move files / folders in your ~/.config
 - b.) if you have azerty keyboard [`this`](https://github.com/swaywm/sway/issues/1460?fbclid=IwAR1C8VcY_wWbGhXvT-5ApjJCQuJoJzhOVor6o5fdn0Nj1c6bD9JXoQAPQIg) might help
 
+### ✨ know-issues:
+- fractional scaling breaks swww
