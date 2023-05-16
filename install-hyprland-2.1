@@ -565,12 +565,12 @@ detect_x_layout() {
 }
 
 # Detect the current keyboard layout based on the environment
-if [[ -t 0 ]]; then
-  # System is in a tty
-  layout=$(detect_tty_layout)
-else
-  # System is not in a tty (assume X server environment)
+if [ -n "$DISPLAY" ]; then
+  # System is in an X server environment
   layout=$(detect_x_layout)
+else
+  # System is in a tty environment
+  layout=$(detect_tty_layout)
 fi
 
 echo "Keyboard layout: $layout"
