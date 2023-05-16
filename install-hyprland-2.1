@@ -548,22 +548,30 @@ printf "${NOTE} Detecting keyboard layout to prepare necessary changes in hyprla
 printf "\n"
 printf "\n"
 
-layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+if [[ -t 0 ]]; then
+    # System is in a tty
+    layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+else
+    # System is not in a tty
+    layout=$(localectl status --no-pager | awk '/X11 Layout/ {print $3}')
+fi
+
 # Prompt the user to confirm whether the detected layout is correct
 read -p "Detected keyboard layout or keymap: $layout. Is this correct? [y/n] " confirm
 
 if [ "$confirm" = "y" ]; then
-  # If the detected layout is correct, update the 'kb_layout=' line in the file
-  awk -v layout="$layout" '/kb_layout/ {$0 = "  kb_layout=" layout} 1' config/hypr/hyprland.conf > temp.conf
-  mv temp.conf config/hypr/hyprland.conf
+    # If the detected layout is correct, update the 'kb_layout=' line in the file
+    awk -v layout="$layout" '/kb_layout/ {$0 = "  kb_layout=" layout} 1' config/hypr/hyprland.conf > temp.conf
+    mv temp.conf config/hypr/hyprland.conf
 else
-  # If the detected layout is not correct, prompt the user to enter the correct layout
-  printf "${WARN} Ensure to type in the proper keyboard layout, e.g., uk, de, pl, etc.\n"
-  read -p "Please enter the correct keyboard layout: " new_layout
-  # Update the 'kb_layout=' line with the correct layout in the file
-  awk -v new_layout="$new_layout" '/kb_layout/ {$0 = "  kb_layout=us," new_layout} 1' config/hypr/hyprland.conf > temp.conf
-  mv temp.conf config/hypr/hyprland.conf
+    # If the detected layout is not correct, prompt the user to enter the correct layout
+    printf "${WARN} Ensure to type in the proper keyboard layout, e.g., uk, de, pl, etc.\n"
+    read -p "Please enter the correct keyboard layout: " new_layout
+    # Update the 'kb_layout=' line with the correct layout in the file
+    awk -v new_layout="$new_layout" '/kb_layout/ {$0 = "  kb_layout=us," new_layout} 1' config/hypr/hyprland.conf > temp.conf
+    mv temp.conf config/hypr/hyprland.conf
 fi
+
 
 ### Copy Config Files ###
 set -e # Exit immediately if a command exits with a non-zero status.
