@@ -78,4 +78,5 @@
 - d.) if you have azerty keyboard [`this`](https://github.com/swaywm/sway/issues/1460?fbclid=IwAR1C8VcY_wWbGhXvT-5ApjJCQuJoJzhOVor6o5fdn0Nj1c6bD9JXoQAPQIg) might help
 
 ### ✨ known-issues:
-- fractional scaling breaks swww
+- [ ] fractional scaling breaks swww
+- [ ] cant get cava module to work on waybar
