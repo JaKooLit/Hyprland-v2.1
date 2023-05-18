@@ -30,7 +30,7 @@
 	], 
 
 "modules-right": [
-	"hyprland/window", 
+	//"hyprland/window", 
 	"tray", 
 	"battery", 
 	"backlight",
