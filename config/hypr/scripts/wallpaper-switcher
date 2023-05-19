@@ -32,8 +32,8 @@ fi
 ## Wofi Command
 wofi_command="wofi --show dmenu \
 			--prompt choose...
-			--conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
-			--width=35% --height=40% \
+			--conf $CONFIG --style $STYLE --color $COLORS \
+			--width=$WIDTH% --height=$HEIGHT% \
 			--cache-file=/dev/null \
 			--hide-scroll --no-actions \
 			--matching=fuzzy"
