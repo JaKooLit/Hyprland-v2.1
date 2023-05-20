@@ -148,12 +148,12 @@ install_package() {
 
 # Function to print error messages
 print_error() {
-    printf " %s%s\n" "${ERROR}" "$1" "$NC" >&2
+    printf " %s%s\n" "${ERROR}" "$1" "$NC" 2>&1 | tee -a "$LOG"
 }
 
 # Function to print success messages
 print_success() {
-    printf "%s%s%s\n" "${OK}" "$1" "$NC"
+    printf "%s%s%s\n" "${OK}" "$1" "$NC" 2>&1 | tee -a "$LOG"
 }
 
 # Exit immediately if a command exits with a non-zero status.
