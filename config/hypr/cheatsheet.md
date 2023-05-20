@@ -1,7 +1,7 @@
 # Welcome to my Hyprland help, and tips and tricks #
 # If you have questions, or need help you can open issue on my github
 # Or you can reach me in or join on Discord that I admin
-# Discord link https://discord.gg/rxHczMSyjn or you can message me directly on my discord JaKooLit#2819
+# Discord linkhttps://discord.gg/rxHczMSyjn   or you can message me directly on my discord JaKooLit#2819
 # Github page: https://github.com/JaKooLit
 
   Super = Windows Key
@@ -23,9 +23,11 @@
   for the wallpaper styles and configurations, you can watch my video about it *https://youtu.be/6ZGzOjMJBe4*
   scripts for wallpaper stuff are located in *~/.config/hypr/scripts* file names `changeWallpaper` `changeWallpaper2` `wallpaper-switcher` `waybar-style-change` (last one for waybar)
 
+# Monitor, executables, keybindings, window rules
+  files are located in *~/.config/hypr/configs*
 
 # screenshot
-  Super PrintSrc(button)       *full screenshot* you may need to press Fn
+  Super PrintSrc(button)       *full screenshot*
   Super Shift PrintSrc(button) *active window screenshot*         
   Super CTRL SHIFT PrintSrc    *full screenshot + timer (5s)*
 
@@ -46,7 +48,12 @@
   Super  Shift  1 .. 0    *move container to workspace 1 .. 10*
   Super   Tab             *cycle through workspaces*
 
-
+# waybar customizations
+  - if you want 12h format instead of 24H format, edit the ~/.config/hypr/waybar/modules look for clock. delete the // and add // or delete the previous one
+  - CPU Temperature:
+    - a.) to change from deg C to deg F , edit the ~/.config/hypr/waybar/modules look for "temperature". Change the format to "format": "{temperatureF}°F {icon}",
+    - b.) to fix the temperature if not showing correctly, comment "thermal zone": 0 by putting // before. Delete the // on the "hwmon path". Refresh waybar by pressing CTRL SHIFT w. If still not showing correctly, navigate to /sys/class/hwmon/ and open each hwmon. Look for k10temp for amd. Not sure about intel cpu. and edit accordingly the hwmon path in the "temperature" waybar module.
+    
 # Hyprland configurations
   - *Hyprland* configuration files are in `~/.config/hypr/`
   - files located in this folder can be edited using editor of your choice.
