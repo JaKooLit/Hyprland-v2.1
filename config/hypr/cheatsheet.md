@@ -52,7 +52,8 @@
   - if you want 12h format instead of 24H format, edit the ~/.config/hypr/waybar/modules look for clock. delete the // and add // or delete the previous one
   - CPU Temperature:
     - a.) to change from deg C to deg F , edit the ~/.config/hypr/waybar/modules look for "temperature". Change the format to "format": "{temperatureF}°F {icon}",
-    - b.) to fix the temperature if not showing correctly, comment "thermal zone": 0 by putting // before. Delete the // on the "hwmon path". Refresh waybar by pressing CTRL SHIFT w. If still not showing correctly, navigate to /sys/class/hwmon/ and open each hwmon. Look for k10temp for amd. Not sure about intel cpu. and edit accordingly the hwmon path in the "temperature" waybar module.
+    - b.) to fix the temperature if not showing correctly, comment "thermal zone": 0 by putting // before. Delete the // on the "hwmon path". Refresh waybar by pressing CTRL SHIFT w. If still not showing correctly, navigate to /sys/class/hwmon/ and open each hwmon. Look for k10temp for amd. Not sure about intel cpu. and edit accordingly the hwmon path in the "temperature" waybar module. use this function to easily identify the hwmon path. Thanks to @jqtmviyu
+    ``` for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done ```
     
 # Hyprland configurations
   - *Hyprland* configuration files are in `~/.config/hypr/`
