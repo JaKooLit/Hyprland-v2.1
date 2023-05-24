@@ -18,6 +18,7 @@
   Super           w       *wallpaper shuffle* (right click on wallpaper   waybar module)
   Super   Shift   w       *waybar style-change* (middle click on wallpaper   waybar module)
   Super   Ctrl    w       *wallpaper switcher* (click on wallpaper waybar    module)
+  Super   Alt     w       *Layout switcher* (right-click on menu (penguin) module) (default, plasma, gnome, dual)
   right click on update   waybar module  *wallpaper cycle using swaybg* (no animations)
   To change permanently the wallpaper edit the file in *~/.config/hypr/configs/exec.conf*
   for the wallpaper styles and configurations, you can watch my video about it *https://youtu.be/6ZGzOjMJBe4*
