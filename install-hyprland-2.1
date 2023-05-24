@@ -262,7 +262,7 @@ clear
 # installation of other components needed
 printf "\n%s - Installing other necessary packages.... \n" "${NOTE}"
 
-for PKG1 in foot swaybg swaylock-effects wofi wlogout mako grim slurp wl-clipboard polkit-kde-agent nwg-look-bin swww mousepad micro pavucontrol playerctl; do
+for PKG1 in foot swaybg swaylock-effects wofi wlogout mako grim slurp wl-clipboard polkit-kde-agent nwg-look-bin swww mousepad micro pipewire-alsa pavucontrol playerctl; do
     install_package "$PKG1" 2>&1 | tee -a "$LOG"
     if [ $? -ne 0 ]; then
         echo -e "\e[1A\e[K${ERROR} - $PKG1 install had failed, please check the install.log"
