@@ -15,5 +15,5 @@ if [[ $(pidof swww-daemon) ]]; then
 fi
 
 
-swaybg -m fill -i ${DIR}/${RANDOMPICS}
+swaybg -m fill -i ${RANDOMPICS}
 ## notify-send "${RANDOMPICS}"
