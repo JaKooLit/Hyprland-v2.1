@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 
 iDIR="$HOME/.config/hypr/mako/icons"
+backlight=$(brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}')
 
 # Get brightness
 get_backlight() {
-	LIGHT=$(printf "%.0f\n" $(brightnessctl i))
-	echo "${LIGHT}%"
+	echo "$backlight%"
 }
 
 # Get icons
 get_icon() {
-	backlight="$(brightnessctl g)"
-	current="${backlight%%%}"
+        current="${backlight%%%}"
 	if [[ ("$current" -ge "0") && ("$current" -le "20") ]]; then
 		icon="$iDIR/brightness-20.png"
 	elif [[ ("$current" -ge "20") && ("$current" -le "40") ]]; then
@@ -27,7 +26,7 @@ get_icon() {
 
 # Notify
 notify_user() {
-	notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon" "Brightness : $(brightnessctl g)"
+	notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon" "Brightness : $backlight %"
 }
 
 # Increase brightness
@@ -41,9 +40,7 @@ dec_backlight() {
 }
 
 # Execute accordingly
-if [[ "$1" == "--get" ]]; then
-	brightnessctl g
-elif [[ "$1" == "--inc" ]]; then
+if [[ "$1" == "--inc" ]]; then
 	inc_backlight
 elif [[ "$1" == "--dec" ]]; then
 	dec_backlight

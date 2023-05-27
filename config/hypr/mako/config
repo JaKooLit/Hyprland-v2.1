@@ -10,7 +10,7 @@ on-touch=dismiss
 on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
 
 # STYLE OPTIONS
-font=Fantasque Sans Mono 14
+font="Fantasque Sans Mono", 12
 width=300
 height=100
 margin=10
