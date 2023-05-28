@@ -205,7 +205,7 @@
 "custom/cycle_wall":{
   "format":" ",
   "on-click": "~/.config/hypr/scripts/wallpaper-switcher",
-  "on-click-right": "~/.config/hypr/scripts/changeWallpaper2",
+  "on-click-right": "~/.config/hypr/scripts/changeWallpaper swww",
   "on-click-middle": "~/.config/hypr/scripts/waybar-style-change",
   "tooltip": true,
   "tooltip-format": "Change wallpaper or style"
@@ -306,7 +306,7 @@
   "exec-if": "[[ $(checkupdates | wc -l) ]]",
   "interval": 15,
   "on-click": "foot -T update paru -Syu || yay -Syu && notify-send 'The system has been updated'",
-  "on-click-right": "~/.config/hypr/scripts/changeWallpaper",
+  "on-click-right": "~/.config/hypr/scripts/changeWallpaper swaybg",
 },
   
 "idle_inhibitor": {

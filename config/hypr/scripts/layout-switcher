@@ -68,7 +68,7 @@ if [[ -n "$choice" ]]; then
     # Restart Waybar
     killall waybar
     exec ~/.config/hypr/scripts/statusbar &	
-    exec ~/.config/hypr/scripts/changeWallpaper2 &
+    exec ~/.config/hypr/scripts/changeWallpaper &
 fi
 
 ##                

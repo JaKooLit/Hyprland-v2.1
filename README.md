@@ -50,7 +50,7 @@
 - easy way, ran script, script will create back-up of your files and folders (which needed for the config-dots) so you can easily copy over.
 - long way, copy the scripts in config/hypr/scripts and copy to your ~/.config/hypr/scripts . Make sure to make them executable after copied. By running chmod +x filename..
 - copy the waybar folder in config/hypr/waybar to your ~/.config/hypr/waybar
-- copy the wallpapers to your ~/Pictures . Some scripts are checking those folder. If not, modify the scripts changeWallpaper, changeWallpaper2, dark-light-mode, wallpaper-switcher in your ~/.config/hypr/scripts to your actual wallpapers.
+- copy the wallpapers to your ~/Pictures . Some scripts are checking those folder. If not, modify the scripts changeWallpaper, dark-light-mode, wallpaper-switcher in your ~/.config/hypr/scripts to your actual wallpapers.
 
 ### ✨ Some notes regarding using the install script:
 - clone this repo by using git. Change directory, make executable and run the script >cd Hyprland-v2.1 chmod +× install-Hyprland-2.1 ./install-Hyprland-2.1
