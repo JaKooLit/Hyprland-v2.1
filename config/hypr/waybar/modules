@@ -70,7 +70,7 @@
   "tooltip": false,
   "on-click": "$HOME/.config/hypr/scripts/menu",
   "on-click-right": "$HOME/.config/hypr/scripts/layout-switcher",
-  "on-click-middle": "~/.config/hypr/scripts/changeWallpaper",
+  "on-click-middle": "~/.config/hypr/scripts/changeWallpaper swaybg",
  
 },
   
