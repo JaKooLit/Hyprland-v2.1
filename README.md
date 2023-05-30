@@ -81,3 +81,4 @@
 ### ✨ known-issues:
 - [ ] fractional scaling breaks swww
 - [ ] cant get cava module to work on waybar
+- [ ] weather data sometimes does not give data. This is because module is not receiving data from weather server. Deleting the rbn folder in your ~/.cache sometimes help
