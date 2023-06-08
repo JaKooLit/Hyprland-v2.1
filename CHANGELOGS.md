@@ -1,4 +1,6 @@
 # Changelogs #
+# 07 June 2023
+-updated install script for adding modules in /etc/mkinitcpio.conf
 
 # 20 May 2023
 - updated cheatsheet
