@@ -1,4 +1,8 @@
 # Changelogs #
+
+# 25 Sep 2023
+- added nvidia-grub users function to add nvidia_drm.modeset=1 in /etc/default/grub
+
 # 07 June 2023
 -updated install script for adding modules in /etc/mkinitcpio.conf
 
